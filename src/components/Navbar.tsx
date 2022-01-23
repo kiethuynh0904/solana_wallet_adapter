@@ -67,7 +67,7 @@ function Navbar() {
       <AppBar position="static" sx={{ backgroundColor: "#131a35" }}>
         <CssBaseline />
         <Toolbar>
-          <Typography variant="h4" className={classes.logo}>
+          <Typography variant="h4" color="#ffffff" className={classes.logo}>
             S3Corp
           </Typography>
 
@@ -77,6 +77,7 @@ function Navbar() {
             <CustomLink to="/createNFT/0">Create NFT</CustomLink>
             <CustomLink to="/staking">Staking</CustomLink>
             <CustomLink to="/metaplex">Market</CustomLink>
+            <CustomLink to="/auction">Auction</CustomLink>
           </div>
           <WalletMultiButton />
         </Toolbar>

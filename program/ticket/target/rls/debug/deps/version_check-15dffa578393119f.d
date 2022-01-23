@@ -1,0 +1,10 @@
+/Users/kiet.huynh/Self-Study/Blockchain/solana-wallet-apdater/program/ticket/target/rls/debug/deps/version_check-15dffa578393119f.rmeta: /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/lib.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/version.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/channel.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/date.rs
+
+/Users/kiet.huynh/Self-Study/Blockchain/solana-wallet-apdater/program/ticket/target/rls/debug/deps/libversion_check-15dffa578393119f.rlib: /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/lib.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/version.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/channel.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/date.rs
+
+/Users/kiet.huynh/Self-Study/Blockchain/solana-wallet-apdater/program/ticket/target/rls/debug/deps/version_check-15dffa578393119f.d: /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/lib.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/version.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/channel.rs /Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/date.rs
+
+/Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/lib.rs:
+/Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/version.rs:
+/Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/channel.rs:
+/Users/kiet.huynh/.cargo/registry/src/github.com-1ecc6299db9ec823/version_check-0.9.4/src/date.rs:

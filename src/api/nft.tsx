@@ -28,11 +28,12 @@ export const buyNFT = async (
     options?: SendTransactionOptions
   ) => Promise<TransactionSignature>
 ) => {
+
   let myToken = new splToken.Token(
     connection,
-    mintAddress,
+    mintAddress, // your nft address
     splToken.TOKEN_PROGRAM_ID,
-    defaultAcc
+    defaultAcc // payer
   );
 
   let fromTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(

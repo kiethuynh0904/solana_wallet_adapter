@@ -3,10 +3,14 @@ import os from "os";
 import fs from "mz/fs";
 import path from "path";
 import yaml from "yaml";
-import { Keypair } from "@solana/web3.js";
+import { Connection, Keypair, PublicKey,clusterApiUrl } from "@solana/web3.js";
 
 import { PRIVATE_KEY_DEFAULT_ACCOUNT } from "../constants/defaultWallet";
 import bs58 from "bs58";
+import { useLocalStorage } from "./useLocalStorage";
+export const NETWORK = clusterApiUrl("devnet");
+
+export const connection = new Connection(NETWORK);
 
 export async function createKeypairFromFile(
   filePath: string
@@ -52,3 +56,30 @@ export async function getPayer(): Promise<Keypair> {
     return Keypair.generate();
   }
 }
+
+
+const PubKeysInternedMap = new Map<string, PublicKey>();
+
+export const toPublicKey = (key: string | PublicKey) => {
+  if (typeof key !== 'string') {
+    return key;
+  }
+
+  let result = PubKeysInternedMap.get(key);
+  if (!result) {
+    result = new PublicKey(key);
+    PubKeysInternedMap.set(key, result);
+  }
+
+  return result;
+};
+
+export const findProgramAddress = async (
+  seeds: (Buffer | Uint8Array)[],
+  programId: PublicKey,
+) => {
+  const result = await PublicKey.findProgramAddress(seeds, programId);
+
+
+  return [result[0].toBase58(), result[1]] as [string, number];
+};

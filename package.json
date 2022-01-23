@@ -24,9 +24,11 @@
     "@types/node": "^16.7.13",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
+    "antd": "^4.18.4",
     "axios": "^0.24.0",
     "borsh": "^0.7.0",
     "bs58": "^4.0.1",
+    "dom-to-image": "^2.6.0",
     "fs": "^0.0.1-security",
     "mz": "^2.7.0",
     "notistack": "^2.0.3",
@@ -40,6 +42,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "@types/dom-to-image": "^2.6.4",
     "@types/mz": "^2.7.2",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "bn.js": "^5.2.0",

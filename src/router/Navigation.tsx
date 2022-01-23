@@ -15,6 +15,7 @@ import { SettingContainer } from "../pages/settings/setting.container";
 import { CreateNFTContainer } from "../pages/createNFT/createNFT.container";
 import { MetaplexContainer } from "../pages/metaplex/metaplex.container";
 import { StakingContainer } from "../pages/staking/staking.container";
+import { AuctionContainer } from "../pages/auction/auction.container";
 
 
 import { Error } from "../pages/error/error.container";
@@ -35,6 +36,7 @@ export const Navigation: FC = () => {
         <Route path="/staking" element={<StakingContainer />} />
         <Route path="/createNFT/:step" element={<CreateNFTContainer />} />
         <Route path="/metaplex" element={<MetaplexContainer />} />
+        <Route path="/auction" element={<AuctionContainer />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Outlet />

@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/kiet.huynh/Self-Study/Blockchain/solana-wallet-apdater/program/ticket/target/bpfel-unknown-unknown/release/build/typenum-b46cd49ced641d8d/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/kiet.huynh/Self-Study/Blockchain/solana-wallet-apdater/program/ticket/target/bpfel-unknown-unknown/release/build/typenum-b46cd49ced641d8d/out/op.rs
