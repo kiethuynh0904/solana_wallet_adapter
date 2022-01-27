@@ -5,7 +5,7 @@ import * as splToken from "@solana/spl-token";
 import crypto from "crypto";
 import BN from "bn.js";
 
-import { findProgramAddress, toPublicKey } from "../utils/index";
+import { findProgramAddress, toPublicKey, sleepUtil } from "../utils/index";
 import {
   METADATA_SCHEMA,
   createMasterEdition,
@@ -57,9 +57,7 @@ export type ENDPOINT_NAME =
   | "localnet"
   | "lending";
 
-const sleepUtil = (ms: number) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+
 export const AR_SOL_HOLDER_ID = new PublicKey(
   "HvwC9QSAzvGXhhVrgPmauVwFWcYZhne3hVot9EbHuFTm"
 );

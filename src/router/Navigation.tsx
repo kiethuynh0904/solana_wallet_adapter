@@ -1,4 +1,3 @@
-
 import React, { FC } from "react";
 
 import {
@@ -15,14 +14,13 @@ import { SettingContainer } from "../pages/settings/setting.container";
 import { CreateNFTContainer } from "../pages/createNFT/createNFT.container";
 import { MetaplexContainer } from "../pages/metaplex/metaplex.container";
 import { StakingContainer } from "../pages/staking/staking.container";
-import { AuctionContainer } from "../pages/auction/auction.container";
-
+import { GameplayContainer } from "../pages/game/game.container";
+import { GameStartContainer } from "../pages/game/gamestart.container";
 
 import { Error } from "../pages/error/error.container";
 import { Navbar } from "../components";
 
 export const Navigation: FC = () => {
-
   return (
     <Router>
       <Navbar />
@@ -36,7 +34,8 @@ export const Navigation: FC = () => {
         <Route path="/staking" element={<StakingContainer />} />
         <Route path="/createNFT/:step" element={<CreateNFTContainer />} />
         <Route path="/metaplex" element={<MetaplexContainer />} />
-        <Route path="/auction" element={<AuctionContainer />} />
+        <Route path="/gameplay" element={<GameplayContainer />}/>
+        <Route path="/gameplay/start" element={<GameStartContainer />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Outlet />

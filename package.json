@@ -28,6 +28,7 @@
     "axios": "^0.24.0",
     "borsh": "^0.7.0",
     "bs58": "^4.0.1",
+    "buffer-layout": "^1.2.2",
     "dom-to-image": "^2.6.0",
     "fs": "^0.0.1-security",
     "mz": "^2.7.0",
@@ -48,7 +49,7 @@
     "bn.js": "^5.2.0",
     "react-scripts": "^4.0.3",
     "ts-node": "^10.0.0",
-    "typescript": "^4.4.2"
+    "typescript": "^4.5.5"
   },
   "scripts": {
     "start": "react-scripts start",

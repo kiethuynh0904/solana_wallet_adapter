@@ -21,7 +21,7 @@ import { toast } from "react-toastify";
 import NotificationToastify from "../components/NotificationToastify";
 import { defaultToastOptions } from "../constants/toastifyOptions";
 import { GREETING_SIZE, GreetingSchema, GreetingAccount } from "../model";
-import { createKeypairFromFile, getPayer } from "./../utils";
+import {  getPayer } from "./../utils";
 import { PROGRAM_KEYPAIR_PATH, PROGRAM_SO_PATH } from "./../config";
 import { Alert } from "@mui/material";
 import { ReactElement } from "react";

@@ -6,17 +6,15 @@ import {
   Keypair,
 } from "@solana/web3.js";
 import React from "react";
+import { connection } from "../utils";
 
 const getBalance = async (_pubKey: PublicKey) => {
-  const connection = new Connection(clusterApiUrl("devnet"));
   const lamports = await connection.getBalance(_pubKey);
 
   const sol = lamports / LAMPORTS_PER_SOL;
   return sol;
 };
-
 const getTokenBalance = async (_pubKey: PublicKey) => {
-  const connection = new Connection(clusterApiUrl("devnet"));
   const mintTokenAddress = new PublicKey(
     process.env.REACT_APP_XMT_TOKEN_ADDRESS || ""
   );

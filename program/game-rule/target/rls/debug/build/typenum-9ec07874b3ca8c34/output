@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/kiet.huynh/Self-Study/Blockchain/solana-wallet-apdater/program/game/game-rule/target/rls/debug/build/typenum-9ec07874b3ca8c34/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/kiet.huynh/Self-Study/Blockchain/solana-wallet-apdater/program/game/game-rule/target/rls/debug/build/typenum-9ec07874b3ca8c34/out/op.rs

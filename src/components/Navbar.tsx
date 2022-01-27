@@ -77,7 +77,7 @@ function Navbar() {
             <CustomLink to="/createNFT/0">Create NFT</CustomLink>
             <CustomLink to="/staking">Staking</CustomLink>
             <CustomLink to="/metaplex">Market</CustomLink>
-            <CustomLink to="/auction">Auction</CustomLink>
+            <CustomLink to="/gameplay">Gameplay</CustomLink>
           </div>
           <WalletMultiButton />
         </Toolbar>
