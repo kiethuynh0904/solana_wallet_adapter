@@ -1,2 +1,0 @@
-export const PRIVATE_KEY_DEFAULT_ACCOUNT = "3WtaDTy4jTUWSaMXudnDaxJ4xEhmr8fm6Ht9doXTgHLjN9Yfh5BrioseyKiNXvyTBeML9h8naN6dTKYz6zkD1MRG"
-
