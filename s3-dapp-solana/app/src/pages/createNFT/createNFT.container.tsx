@@ -8,7 +8,6 @@ import {
   IMetadataExtension,
   MetadataFile,
 } from "../../model/metadata";
-import { dataURLtoFile } from "../../helper";
 import {
   Upload,
   Typography,
