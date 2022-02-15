@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "programs/game-rule",
+    "programs/s3-dapp-solana",
+]
+exclude = [
+]

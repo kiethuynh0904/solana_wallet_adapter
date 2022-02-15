@@ -1,0 +1,79 @@
+{
+  "name": "solana-wallet-apdater",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@metaplex/js": "^4.11.2",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.5",
+    "@mui/styles": "^5.2.3",
+    "@solana/spl-token": "^0.1.8",
+    "@solana/wallet-adapter-base": "^0.8.1",
+    "@solana/wallet-adapter-react": "^0.14.1",
+    "@solana/wallet-adapter-react-ui": "^0.7.0",
+    "@solana/wallet-adapter-wallets": "^0.13.0",
+    "@solana/web3.js": "^1.31.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
+    "antd": "^4.18.4",
+    "axios": "^0.24.0",
+    "borsh": "^0.7.0",
+    "bs58": "^4.0.1",
+    "buffer-layout": "^1.2.2",
+    "dom-to-image": "^2.6.0",
+    "fs": "^0.0.1-security",
+    "mz": "^2.7.0",
+    "notistack": "^2.0.3",
+    "react": "^17.0.2",
+    "react-copy-to-clipboard": "^5.0.4",
+    "react-dom": "^17.0.2",
+    "react-hot-toast": "^2.1.1",
+    "react-qr-code": "^2.0.3",
+    "react-router-dom": "^6.2.1",
+    "react-toastify": "^8.1.0",
+    "web-vitals": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/dom-to-image": "^2.6.4",
+    "@types/mz": "^2.7.2",
+    "@types/react-copy-to-clipboard": "^5.0.2",
+    "bn.js": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.5.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "build:program-rust": "cargo build-bpf --manifest-path=./program-rust/Cargo.toml --bpf-out-dir=dist/program"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
