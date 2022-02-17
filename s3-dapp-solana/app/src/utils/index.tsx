@@ -3,7 +3,11 @@ import { PAYER_KEYPAIR_PATH } from "../config/index";
 import { Connection, Keypair, PublicKey, clusterApiUrl } from "@solana/web3.js";
 
 import bs58 from "bs58";
+import idl from "../idl.json";
+import { Idl, Program, Provider } from "@project-serum/anchor";
+
 export const NETWORK = clusterApiUrl("devnet");
+export const PROGRAM_KEY = new PublicKey(idl.metadata.address);
 
 export const connection = new Connection(NETWORK,"confirmed");
 
@@ -56,3 +60,7 @@ export const findProgramAddress = async (
 export const sleepUtil = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
+
+export function getProgram(provider: Provider) {
+  return new Program(idl as Idl, PROGRAM_KEY, provider);
+}

@@ -22,9 +22,7 @@ import NotificationToastify from "../components/NotificationToastify";
 import { defaultToastOptions } from "../constants/toastifyOptions";
 import { GREETING_SIZE, GreetingSchema, GreetingAccount } from "../model";
 import {  getPayer } from "./../utils";
-import { PROGRAM_KEYPAIR_PATH, PROGRAM_SO_PATH } from "./../config";
-import { Alert } from "@mui/material";
-import { ReactElement } from "react";
+import {  PROGRAM_SO_PATH } from "./../config";
 
 let programId: PublicKey;
 

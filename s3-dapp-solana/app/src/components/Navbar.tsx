@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
   CssBaseline,
-  Typography,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -14,8 +13,17 @@ import {
   WalletDisconnectButton,
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
-
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store";
 import DrawerComponent from "./Drawer";
+import { Typography, Avatar, Popover, Button, Form, Input } from "antd";
+import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
+import { clearUser, saveUser } from "../slices/authSlice";
+import { Provider } from "@project-serum/anchor";
+import { connection, getProgram } from "../utils";
+import { fetchUser, updateUser } from "../api/auth";
+
+const { Title, Text } = Typography;
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -42,7 +50,52 @@ const useStyles = makeStyles((theme) => ({
 function Navbar() {
   const classes = useStyles();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const user = useSelector((state: RootState) => state.auth.user);
+  const anchorWallet = useAnchorWallet();
+  const wallet = useWallet();
+  const dispatch = useDispatch();
+  const [popoverVisible, setPopoverVisible] = useState(false);
+
+  const onFinish = async (values: any) => {
+    if (!anchorWallet) {
+      return;
+    }
+    await updateUser(anchorWallet, anchorWallet.publicKey, values.username);
+    setPopoverVisible(false);
+    const user = await fetchUser(anchorWallet);
+    dispatch(saveUser(user));
+  };
+
+  const handleVisibleChange = visible => {
+    setPopoverVisible(visible);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+  const content = (
+    <Form
+      autoComplete="off"
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+    >
+      <Form.Item name="username">
+        <Input style={{ width: 200 }} placeholder="enter your new username" />
+      </Form.Item>
+      <Form.Item>
+        <Button style={{ width: "100%" }} type="primary" htmlType="submit">
+          Update
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+
+  useEffect(() => {
+    console.log(wallet);
+    if (!wallet.connected) {
+      dispatch(clearUser());
+    }
+  }, [wallet]);
 
   const CustomLink = ({ children, to, ...props }: LinkProps) => {
     let resolved = useResolvedPath(to);
@@ -67,9 +120,13 @@ function Navbar() {
       <AppBar position="static" sx={{ backgroundColor: "#131a35" }}>
         <CssBaseline />
         <Toolbar>
-          <Typography variant="h4" color="#ffffff" className={classes.logo}>
+          <Title
+            level={2}
+            style={{ color: "#ffffff" }}
+            className={classes.logo}
+          >
             S3Corp
-          </Typography>
+          </Title>
 
           <div className={classes.navlinks}>
             <CustomLink to="/wallet">Wallet</CustomLink>
@@ -79,7 +136,32 @@ function Navbar() {
             <CustomLink to="/metaplex">Market</CustomLink>
             <CustomLink to="/gameplay">Gameplay</CustomLink>
           </div>
-          <WalletMultiButton />
+          <>
+            {user && (
+              <div style={{ marginRight: 5 }}>
+                <Avatar
+                  src={user.avatar}
+                  size={40}
+                  style={{ backgroundColor: "#ffffff" }}
+                />
+                <Popover onVisibleChange={handleVisibleChange} visible={popoverVisible} placement="bottom" content={content} trigger="click">
+                  <Button type="text">
+                    <Text
+                      strong
+                      style={{
+                        color: "#ffffff",
+                        textAlign: "center",
+                        marginLeft: 5,
+                      }}
+                    >
+                      {user.name}
+                    </Text>
+                  </Button>
+                </Popover>
+              </div>
+            )}
+            <WalletMultiButton />
+          </>
         </Toolbar>
       </AppBar>
     </ThemeProvider>
