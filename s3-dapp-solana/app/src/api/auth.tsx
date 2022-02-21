@@ -3,7 +3,7 @@ import { Wallet as AnchorWallet } from "@project-serum/anchor/dist/cjs/provider"
 
 import { PublicKey, SystemProgram } from "@solana/web3.js";
 import { Dispatch } from "redux";
-import { genUserKey, getAvatarUrl } from "../helper";
+import { getUserKey, getAvatarUrl } from "../helper";
 import { saveUser } from "../slices/authSlice";
 import { connection, getProgram, PROGRAM_KEY } from "../utils";
 
@@ -21,7 +21,7 @@ export const signup = async (
   walletKey: PublicKey,
   name: string
 ) => {
-  const userAccount = genUserKey(walletKey);
+  const userAccount = getUserKey(walletKey);
   const provider = new anchor.Provider(connection, anchorWallet, {});
 
   const program = getProgram(provider);
@@ -46,7 +46,7 @@ export const updateUser = async (
   const provider = new anchor.Provider(connection, anchorWallet, {});
   const program = getProgram(provider);
   const avatar = getAvatarUrl(name);
-  const userAccount = genUserKey(walletKey);
+  const userAccount = getUserKey(walletKey);
   
   try {
     const tx = await program.rpc.updateUser(name, avatar, {
@@ -64,7 +64,7 @@ export const updateUser = async (
 export const fetchUser = async (anchorWallet: AnchorWallet): Promise<User> => {
   const provider = new anchor.Provider(connection, anchorWallet, {});
   const program = getProgram(provider);
-  const userAccount = genUserKey(provider.wallet.publicKey);
+  const userAccount = getUserKey(provider.wallet.publicKey);
   const _user = await program.account.userState.fetch(userAccount.publicKey);
 
   const user = {

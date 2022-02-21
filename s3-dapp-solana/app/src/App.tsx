@@ -1,17 +1,10 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import { Navigation } from "./router/Navigation";
 import { SnackbarProvider } from "notistack";
 import { SolanaWalletProvider } from "./providers/SolanaWalletProvider";
-import { ThemeProvider } from "@mui/styles";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import LaunchIcon from "@material-ui/icons/Launch";
-import { Link, makeStyles } from "@material-ui/core";
-import NotificationToastify from "./components/NotificationToastify";
-
-require("@solana/wallet-adapter-react-ui/styles.css");
+import "@solana/wallet-adapter-react-ui/styles.css";
+import "./App.less";
 
 function App() {
   return (

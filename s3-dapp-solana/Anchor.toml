@@ -1,5 +1,5 @@
 [programs.localnet]
-s3_dapp_solana = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+s3_dapp_solana = "7Dxt825Do6FqABHZrUdDufNDGSGN6LETMPryXNWowMD4"
 
 [registry]
 url = "https://anchor.projectserum.com"

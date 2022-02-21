@@ -38,7 +38,7 @@ const maskedAddress = (address: string) => {
   return `${address.slice(0, 6)}...${address.slice(address.length - 6)}`;
 };
 
-const genUserKey = (walletKey: PublicKey) => {
+const getUserKey = (walletKey: PublicKey) => {
   const userAccount = Keypair.fromSeed(
     new TextEncoder().encode(
       `${PROGRAM_KEY.toString().slice(0, 15)}__${walletKey
@@ -59,5 +59,5 @@ export {
   generateNewAccount,
   maskedAddress,
   getTokenBalance,
-  genUserKey,
+  getUserKey,
 };

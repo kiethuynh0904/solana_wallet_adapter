@@ -6,7 +6,6 @@ async function updateUser(program, provider, userAccount) {
     const updatedName = "updated name";
     const updatedAvatar = "Updated avatar";
 
-    console.log('run here', program.programId.toString());
 
     await program.rpc.updateUser(updatedName, updatedAvatar, {
         accounts: {

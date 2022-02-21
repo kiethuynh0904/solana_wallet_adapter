@@ -43,12 +43,6 @@ export const HomeContainer: FC = () => {
     dispatch(saveUser(user));
   };
 
-  useEffect(() => {
-    if (anchorWallet) {
-      getUser();
-    }
-  }, [anchorWallet]);
-
   if (!anchorWallet) {
     return (
       <Row

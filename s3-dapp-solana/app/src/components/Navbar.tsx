@@ -52,7 +52,7 @@ function Navbar() {
   const theme = useTheme();
   const user = useSelector((state: RootState) => state.auth.user);
   const anchorWallet = useAnchorWallet();
-  const wallet = useWallet();
+  const { connected, connecting, disconnecting } = useWallet();
   const dispatch = useDispatch();
   const [popoverVisible, setPopoverVisible] = useState(false);
 
@@ -62,11 +62,10 @@ function Navbar() {
     }
     await updateUser(anchorWallet, anchorWallet.publicKey, values.username);
     setPopoverVisible(false);
-    const user = await fetchUser(anchorWallet);
-    dispatch(saveUser(user));
+    await getUser();
   };
 
-  const handleVisibleChange = visible => {
+  const handleVisibleChange = (visible) => {
     setPopoverVisible(visible);
   };
 
@@ -90,12 +89,25 @@ function Navbar() {
     </Form>
   );
 
+  const getUser = async () => {
+    if (!anchorWallet) {
+      return;
+    }
+    const user = await fetchUser(anchorWallet);
+    dispatch(saveUser(user));
+  };
+
   useEffect(() => {
-    console.log(wallet);
-    if (!wallet.connected) {
+    if (connected) {
+      getUser();
+    }
+  }, [connected]);
+
+  useEffect(() => {
+    if (disconnecting) {
       dispatch(clearUser());
     }
-  }, [wallet]);
+  }, [disconnecting]);
 
   const CustomLink = ({ children, to, ...props }: LinkProps) => {
     let resolved = useResolvedPath(to);
@@ -135,6 +147,7 @@ function Navbar() {
             <CustomLink to="/staking">Staking</CustomLink>
             <CustomLink to="/metaplex">Market</CustomLink>
             <CustomLink to="/gameplay">Gameplay</CustomLink>
+            <CustomLink to="/feedback">Feedback</CustomLink>
           </div>
           <>
             {user && (
@@ -144,7 +157,13 @@ function Navbar() {
                   size={40}
                   style={{ backgroundColor: "#ffffff" }}
                 />
-                <Popover onVisibleChange={handleVisibleChange} visible={popoverVisible} placement="bottom" content={content} trigger="click">
+                <Popover
+                  onVisibleChange={handleVisibleChange}
+                  visible={popoverVisible}
+                  placement="bottom"
+                  content={content}
+                  trigger="click"
+                >
                   <Button type="text">
                     <Text
                       strong

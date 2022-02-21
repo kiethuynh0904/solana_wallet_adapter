@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,9 +7,17 @@ import Container from "@mui/material/Container";
 import { Stack } from "@mui/material";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 
+
 export const WalletContainer: FC = () => {
   let navigate = useNavigate();
   const { pathname } = useLocation();
+  // const anchorWallet = useAnchorWallet();
+
+  // useEffect(() => {
+  //   if (anchorWallet) {
+  //     const userAccount = getUserKey(anchorWallet?.publicKey);
+  //   }
+  // }, [anchorWallet]);
 
   console.log("pathname", pathname);
 

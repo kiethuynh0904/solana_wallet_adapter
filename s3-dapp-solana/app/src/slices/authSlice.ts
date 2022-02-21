@@ -14,7 +14,7 @@ const initialState: AuthState = {
 };
 
 export const authSlice = createSlice({
-  name: "counter",
+  name: "auth",
   initialState,
   reducers: {
     saveUser: (state, action: PayloadAction<User>) => {

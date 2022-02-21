@@ -5,6 +5,7 @@ import { S3DappSolana } from "../target/types/s3_dapp_solana";
 
 const { createUser } = require("./functions/createUser");
 const { updateUser } = require("./functions/updateUser");
+const { createFeedback } = require("./functions/createFeedback");
 
 const assert = require("assert");
 
@@ -42,6 +43,19 @@ describe("s3-dapp-solana", () => {
     assert.equal(user.avatar, updatedAvatar);
     assert.equal(
       user.authority.toString(),
+      provider.wallet.publicKey.toString()
+    );
+  });
+  it("init feedback account", async () => {
+    const { feedback, feedbackAccount, genesisPostAccount } =
+      await createFeedback(program, provider);
+    assert.equal(
+      feedback.currentPostKey.toString(),
+      genesisPostAccount.publicKey.toString()
+    );
+
+    assert.equal(
+      feedback.authority.toString(),
       provider.wallet.publicKey.toString()
     );
   });

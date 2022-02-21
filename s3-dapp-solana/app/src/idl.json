@@ -56,6 +56,97 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "initFeedback",
+      "accounts": [
+        {
+          "name": "feedbackAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "genesisPostAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createPost",
+      "accounts": [
+        {
+          "name": "postAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "feedbackAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "updatePost",
+      "accounts": [
+        {
+          "name": "postAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "type": "string"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -78,6 +169,74 @@
           }
         ]
       }
+    },
+    {
+      "name": "FeedbackState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "currentPostKey",
+            "type": "publicKey"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PostState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "prePostKey",
+            "type": "publicKey"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "PostEvent",
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "index": false
+        },
+        {
+          "name": "postId",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "nextPostId",
+          "type": {
+            "option": "publicKey"
+          },
+          "index": false
+        }
+      ]
     }
   ],
   "metadata": {

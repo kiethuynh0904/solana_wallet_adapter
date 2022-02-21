@@ -19,6 +19,7 @@ import { GameStartContainer } from "../pages/game/gamestart.container";
 
 import { Error } from "../pages/error/error.container";
 import { Navbar } from "../components";
+import { FeedBackContainer } from "../pages/feedback/feedback.container";
 
 export const Navigation: FC = () => {
   return (
@@ -36,6 +37,7 @@ export const Navigation: FC = () => {
         <Route path="/metaplex" element={<MetaplexContainer />} />
         <Route path="/gameplay" element={<GameplayContainer />}/>
         <Route path="/gameplay/start" element={<GameStartContainer />} />
+        <Route path="/feedback" element={<FeedBackContainer />}/>
         <Route path="*" element={<Error />} />
       </Routes>
       <Outlet />

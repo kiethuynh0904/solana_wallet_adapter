@@ -21,6 +21,9 @@ import { getBalance, getTokenBalance } from "../../helper";
 
 import { useNotify } from "../../hooks/useNotification";
 import { TransactionAPI, AccountAPI } from "../../api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { PublicKey } from "@solana/web3.js";
 
 const initialSOL = { sol: 0, xmt: 0 };
 
@@ -32,6 +35,7 @@ export const WithdrawContainer: FC = () => {
   const [customAddress, setCustomAddress] = useState("");
   const [checked, setChecked] = useState(false);
   const [symbolType, setSymbolType] = useState("SOL");
+  const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
     const init = async () => {
@@ -42,13 +46,24 @@ export const WithdrawContainer: FC = () => {
       await TransactionAPI.checkProgram();
     };
     init();
-    getAsyncBalance();
   }, []);
 
+  useEffect(() => {
+    if (publicKey) {
+      getAsyncBalance();
+    } else {
+      setBalance({ sol: 0, xmt: 0 });
+    }
+  }, [publicKey]);
+
   async function getAsyncBalance() {
-    const defaultAccount = AccountAPI.getDefaultAccount();
-    const sol = await getBalance(defaultAccount.publicKey);
-    const xmt = await getTokenBalance(defaultAccount.publicKey);
+    if (!publicKey) {
+      return;
+    }
+    // const defaultAccount = AccountAPI.getDefaultAccount();
+
+    const sol = await getBalance(publicKey);
+    const xmt = await getTokenBalance(publicKey);
     setBalance({ sol, xmt });
   }
 
@@ -96,13 +111,40 @@ export const WithdrawContainer: FC = () => {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm">
-        <Card sx={{ minWidth: 275, marginTop: 10 }}>
+        <Card sx={{ minWidth: 300, marginTop: 10 }}>
           <CardContent>
             <Typography gutterBottom variant="h5" textAlign="center">
               Withdraw
             </Typography>
             <FormControl fullWidth>
               <TextField
+                placeholder={!user.name ? "please connect your wallet" : ""}
+                sx={{ marginBottom: 3 }}
+                value={user.name || ""}
+                fullWidth
+                id="outlined-basic"
+                disabled={true}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                label="wallet name"
+              />
+              <TextField
+                placeholder={!publicKey ? "please connect your wallet" : ""}
+                sx={{ marginBottom: 3 }}
+                value={publicKey || ""}
+                fullWidth
+                id="outlined-basic"
+                disabled={true}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                label="from address"
+              />
+              <TextField
+                sx={{ marginBottom: 3 }}
                 value={customAddress}
                 defaultValue=""
                 fullWidth
@@ -113,9 +155,9 @@ export const WithdrawContainer: FC = () => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                label="address"
+                label="to address"
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 // value="start"
                 control={
                   <Checkbox
@@ -131,7 +173,7 @@ export const WithdrawContainer: FC = () => {
                   </Typography>
                 }
                 labelPlacement="end"
-              />
+              /> */}
 
               <TextField
                 id="outlined-select-currency"
@@ -174,7 +216,7 @@ export const WithdrawContainer: FC = () => {
               fullWidth
               size="large"
               onClick={withdrawToWallet}
-              disabled={!publicKey}
+              disabled={!publicKey || !customAddress}
             >
               <Typography variant="body2" color="#fff">
                 Apply

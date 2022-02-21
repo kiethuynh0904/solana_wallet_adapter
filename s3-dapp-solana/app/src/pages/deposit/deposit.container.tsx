@@ -16,34 +16,30 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 
-import { Stack, TextField } from "@mui/material";
+import { MenuItem, Stack, TextField } from "@mui/material";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 
-import { getBalance, maskedAddress, getTokenBalance } from "../../helper";
+import { maskedAddress } from "../../helper";
 
 import { TransactionAPI, AccountAPI } from "../../api";
 import { Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { useSolanaDefaultAccount } from "../../hooks/useSolanaDefaultAccount";
-
-const initialSOL = 0;
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { useSolanaBalance } from "../../hooks/useSolanaBalance";
 
 export const DepositContainer: FC = () => {
   const { publicKey, sendTransaction } = useWallet();
   const { connection } = useConnection();
 
-  const { account,transactions } = useSolanaDefaultAccount();
-
-  console.log("account", account);
-
-  const [defaultAccount, setDefaultAccount] = useState<Keypair>();
-  const [balance, setBalance] = useState(initialSOL);
+  const { balance } = useSolanaBalance();
   const [copied, setCopied] = useState(false);
   const [depositAmount, setDepositAmount] = useState(0);
+  const [symbolType, setSymbolType] = useState("SOL");
 
-  useEffect(() => {
-    getAsyncBalance();
-  }, []);
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  console.log("balance", balance);
 
   const depositFromWallet = useCallback(() => {
     if (!publicKey) {
@@ -58,18 +54,12 @@ export const DepositContainer: FC = () => {
       depositAmount,
       connection,
       sendTransaction
-    ).finally(() => getAsyncBalance());
+    );
   }, [publicKey, depositAmount, connection, sendTransaction]);
 
-  async function getAsyncBalance() {
-    const account = AccountAPI.getDefaultAccount();
-    if (!defaultAccount) {
-      setDefaultAccount(account);
-    }
-    const sol = await getBalance(account.publicKey);
-    const xmt = await getTokenBalance(account.publicKey);
-    setBalance(sol);
-  }
+  const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSymbolType(event.target.value);
+  };
 
   const handleChange = (event: any) => {
     setDepositAmount(event.target.value);
@@ -84,12 +74,12 @@ export const DepositContainer: FC = () => {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm">
-        <Card sx={{ minWidth: 240, marginTop: 10 }}>
+        <Card sx={{ minWidth: 250, marginTop: 10 }}>
           <Stack
             sx={{ justifyContent: "center", alignItems: "center" }}
             direction="row"
           >
-            <CardContent style={{ width: "50%" }}>
+            <CardContent style={{ width: "45%" }}>
               <QRCode
                 value={publicKey?.toString() || ""}
                 style={{ width: "100%", height: 200 }}
@@ -98,9 +88,7 @@ export const DepositContainer: FC = () => {
                 <TextField
                   id="outlined-read-only-input"
                   label="your address"
-                  value={maskedAddress(
-                    defaultAccount?.publicKey?.toString() || ""
-                  )}
+                  value={maskedAddress(publicKey?.toString() || "")}
                   defaultValue=""
                   style={{ width: 190 }}
                   InputProps={{
@@ -112,7 +100,7 @@ export const DepositContainer: FC = () => {
                 />
                 <Stack justifyContent="center" alignItems="center">
                   <CopyToClipboard
-                    text={defaultAccount?.publicKey.toString() || ""}
+                    text={publicKey?.toString() || ""}
                     onCopy={handleCopied}
                   >
                     <Tooltip title={copied ? "Copied" : "Copy"}>
@@ -129,10 +117,30 @@ export const DepositContainer: FC = () => {
                 Your balance!
               </Typography>
               <Typography textAlign="center" color="#33a382">
-                {account
-                  ? account.lamports / LAMPORTS_PER_SOL + " SOL"
+                {balance.sol
+                  ? "Solana: " + balance.sol.toFixed(5) + " SOL"
                   : "Loading.."}
               </Typography>
+              <Typography textAlign="center" color="#33a382">
+                {balance.xmt
+                  ? "X-Mas Token:" + balance.xmt + " XMT"
+                  : "Loading.."}
+              </Typography>
+              {/* 
+              <TextField
+                id="outlined-select-currency"
+                select
+                value={symbolType}
+                onChange={handleSelectChange}
+                helperText="Please select your currency want to deposit"
+              >
+                <MenuItem key="SOL" value="SOL">
+                  SOL
+                </MenuItem>
+                <MenuItem key="XMT" value="XMT">
+                  XMT
+                </MenuItem>
+              </TextField>
               <TextField
                 sx={{ marginTop: 5 }}
                 fullWidth
@@ -144,8 +152,9 @@ export const DepositContainer: FC = () => {
                 onChange={handleChange}
                 defaultValue={0}
                 type="number"
-              />
-              <CardActions sx={{ marginBottom: 2 }}>
+              /> */}
+
+              {/* <CardActions sx={{ marginBottom: 2 }}>
                 <Button
                   variant="contained"
                   color="success"
@@ -158,7 +167,7 @@ export const DepositContainer: FC = () => {
                     Apply
                   </Typography>
                 </Button>
-              </CardActions>
+              </CardActions> */}
             </CardContent>
           </Stack>
         </Card>
