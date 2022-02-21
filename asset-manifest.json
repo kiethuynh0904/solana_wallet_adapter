@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/solana_wallet_adapter/static/css/main.11717e51.chunk.css",
+    "main.js": "/solana_wallet_adapter/static/js/main.4df32890.chunk.js",
+    "main.js.map": "/solana_wallet_adapter/static/js/main.4df32890.chunk.js.map",
+    "runtime-main.js": "/solana_wallet_adapter/static/js/runtime-main.0b114e00.js",
+    "runtime-main.js.map": "/solana_wallet_adapter/static/js/runtime-main.0b114e00.js.map",
+    "static/css/2.38c64e37.chunk.css": "/solana_wallet_adapter/static/css/2.38c64e37.chunk.css",
+    "static/js/2.5464aa2d.chunk.js": "/solana_wallet_adapter/static/js/2.5464aa2d.chunk.js",
+    "static/js/2.5464aa2d.chunk.js.map": "/solana_wallet_adapter/static/js/2.5464aa2d.chunk.js.map",
+    "static/js/3.b0b878a3.chunk.js": "/solana_wallet_adapter/static/js/3.b0b878a3.chunk.js",
+    "static/js/3.b0b878a3.chunk.js.map": "/solana_wallet_adapter/static/js/3.b0b878a3.chunk.js.map",
+    "static/js/4.8d3c6b65.chunk.js": "/solana_wallet_adapter/static/js/4.8d3c6b65.chunk.js",
+    "static/js/4.8d3c6b65.chunk.js.map": "/solana_wallet_adapter/static/js/4.8d3c6b65.chunk.js.map",
+    "index.html": "/solana_wallet_adapter/index.html",
+    "static/css/2.38c64e37.chunk.css.map": "/solana_wallet_adapter/static/css/2.38c64e37.chunk.css.map",
+    "static/css/main.11717e51.chunk.css.map": "/solana_wallet_adapter/static/css/main.11717e51.chunk.css.map",
+    "static/js/2.5464aa2d.chunk.js.LICENSE.txt": "/solana_wallet_adapter/static/js/2.5464aa2d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0b114e00.js",
+    "static/css/2.38c64e37.chunk.css",
+    "static/js/2.5464aa2d.chunk.js",
+    "static/css/main.11717e51.chunk.css",
+    "static/js/main.4df32890.chunk.js"
+  ]
+}
