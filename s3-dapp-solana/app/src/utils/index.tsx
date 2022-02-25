@@ -9,7 +9,7 @@ import { Idl, Program, Provider } from "@project-serum/anchor";
 export const NETWORK = clusterApiUrl("devnet");
 export const PROGRAM_KEY = new PublicKey(idl.metadata.address);
 
-export const connection = new Connection(NETWORK,"confirmed");
+export const connection = new Connection(NETWORK, "confirmed");
 
 export const mintTokenAddress = new PublicKey(
   process.env.REACT_APP_XMT_TOKEN_ADDRESS || ""

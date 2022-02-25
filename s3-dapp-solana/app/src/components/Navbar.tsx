@@ -93,8 +93,17 @@ function Navbar() {
     if (!anchorWallet) {
       return;
     }
-    const user = await fetchUser(anchorWallet);
-    dispatch(saveUser(user));
+    try {
+      const user = await fetchUser(anchorWallet);
+      dispatch(saveUser(user));
+    } catch (error: any) {
+      if(error.message.includes("Account does not exist")){
+        dispatch(clearUser());
+        console.log("must be sign up", error);
+      }else{
+        console.log('error',error);
+      }
+    }
   };
 
   useEffect(() => {

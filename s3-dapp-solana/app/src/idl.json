@@ -120,6 +120,10 @@
         {
           "name": "content",
           "type": "string"
+        },
+        {
+          "name": "createdTime",
+          "type": "i64"
         }
       ]
     },
@@ -147,6 +151,48 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "deletePost",
+      "accounts": [
+        {
+          "name": "postAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nextPostAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deleteLastPost",
+      "accounts": [
+        {
+          "name": "feedbackAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "postAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -200,6 +246,10 @@
             "type": "string"
           },
           {
+            "name": "createdTime",
+            "type": "i64"
+          },
+          {
             "name": "user",
             "type": "publicKey"
           },
@@ -240,6 +290,6 @@
     }
   ],
   "metadata": {
-    "address": "7Dxt825Do6FqABHZrUdDufNDGSGN6LETMPryXNWowMD4"
+    "address": "DBKpaRbYwPjES1PuP933hjLQkzDiubo5NjNoXt4nv3Zq"
   }
 }

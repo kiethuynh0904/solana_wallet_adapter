@@ -8,6 +8,7 @@ import {
 import React from "react";
 import { connection, PROGRAM_KEY } from "../utils";
 import md5 from "md5";
+import * as anchor from '@project-serum/anchor';
 
 const getBalance = async (_pubKey: PublicKey) => {
   const lamports = await connection.getBalance(_pubKey);

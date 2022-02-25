@@ -1,6 +1,6 @@
 [programs.localnet]
-s3_dapp_solana = "7Dxt825Do6FqABHZrUdDufNDGSGN6LETMPryXNWowMD4"
-
+s3_dapp_solana = "DBKpaRbYwPjES1PuP933hjLQkzDiubo5NjNoXt4nv3Zq"
+game_rule_v2 = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
 [registry]
 url = "https://anchor.projectserum.com"
 

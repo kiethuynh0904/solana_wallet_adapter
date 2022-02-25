@@ -1,7 +1,15 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, CloseAccount, Mint, SetAuthority, TokenAccount, Transfer};
 
-declare_id!("7Dxt825Do6FqABHZrUdDufNDGSGN6LETMPryXNWowMD4");
+declare_id!("DBKpaRbYwPjES1PuP933hjLQkzDiubo5NjNoXt4nv3Zq");
+
+pub const POST_SPACE: usize = 8 + // discriminator
+50  + // title
+100 + // content 
+8   + // created_date timestamp 
+32  + // user pubKey
+32  + // pre_post_key
+32; // authority
 
 #[program]
 pub mod s3_dapp_solana {
@@ -34,7 +42,12 @@ pub mod s3_dapp_solana {
 
         Ok(())
     }
-    pub fn create_post(ctx: Context<CreatePost>, title: String, content: String) -> ProgramResult {
+    pub fn create_post(
+        ctx: Context<CreatePost>,
+        title: String,
+        content: String,
+        created_time: i64,
+    ) -> ProgramResult {
         let feedback_account = &mut ctx.accounts.feedback_account;
         let post_account = &mut ctx.accounts.post_account;
         let user_account = &mut ctx.accounts.user_account;
@@ -42,6 +55,7 @@ pub mod s3_dapp_solana {
 
         post_account.title = title;
         post_account.content = content;
+        post_account.created_time = created_time;
         post_account.user = user_account.key();
         post_account.authority = authority.key();
         post_account.pre_post_key = feedback_account.current_post_key;
@@ -68,6 +82,35 @@ pub mod s3_dapp_solana {
             label: "UPDATE".to_string(),
             post_id: post_account.key(),
             next_post_id: None // null
+        });
+
+        Ok(())
+    }
+
+    pub fn delete_post(ctx: Context<DeletePost>) -> ProgramResult {
+        let post_account = &mut ctx.accounts.post_account;
+        let next_post_account = &mut ctx.accounts.next_post_account;
+
+        next_post_account.pre_post_key = post_account.pre_post_key;
+
+        emit!(PostEvent {
+            label: "DELETE".to_string(),
+            post_id: post_account.key(),
+            next_post_id: Some(next_post_account.key()) // null
+        });
+        Ok(())
+    }
+
+    pub fn delete_last_post(ctx: Context<DeleteLatestPost>) -> ProgramResult {
+        let post_account = &mut ctx.accounts.post_account;
+        let feedback_account = &mut ctx.accounts.feedback_account;
+
+        feedback_account.current_post_key = post_account.pre_post_key;
+
+        emit!(PostEvent {
+            label: "DELETE".to_string(),
+            post_id: post_account.key(),
+            next_post_id: None
         });
 
         Ok(())
@@ -117,7 +160,7 @@ pub struct FeedbackState {
 
 #[derive(Accounts)]
 pub struct CreatePost<'info> {
-    #[account(init, payer = authority, space = 8 + 50 + 500 + 32 + 32 + 32)]
+    #[account(init, payer = authority, space = POST_SPACE)]
     pub post_account: Account<'info, PostState>,
     #[account(mut, has_one = authority)]
     pub user_account: Account<'info, UserState>,
@@ -131,6 +174,7 @@ pub struct CreatePost<'info> {
 pub struct PostState {
     title: String,
     content: String,
+    created_time: i64,
     user: Pubkey,
     pub pre_post_key: Pubkey,
     pub authority: Pubkey,
@@ -138,8 +182,8 @@ pub struct PostState {
 
 #[event]
 pub struct PostEvent {
-    pub label: String, // label is like 'CREATE', 'UPDATE', 'DELETE'
-    pub post_id: Pubkey, // created post
+    pub label: String,                // label is like 'CREATE', 'UPDATE', 'DELETE'
+    pub post_id: Pubkey,              // created post
     pub next_post_id: Option<Pubkey>, // for now ignore this, we will use this when we emit delete event
 }
 
@@ -149,6 +193,28 @@ pub struct UpdatePost<'info> {
         mut,
         has_one = authority,
     )]
+    pub post_account: Account<'info, PostState>,
+    pub authority: Signer<'info>,
+}
+
+#[derive(Accounts)]
+pub struct DeletePost<'info> {
+    #[account(
+        mut,
+        has_one = authority,
+        constraint = post_account.key() == next_post_account.pre_post_key,
+        close = authority
+    )]
+    pub post_account: Account<'info, PostState>,
+    #[account(mut)]
+    pub next_post_account: Account<'info, PostState>,
+    pub authority: Signer<'info>,
+}
+#[derive(Accounts)]
+pub struct DeleteLatestPost<'info> {
+    #[account(mut)]
+    pub feedback_account: Account<'info, FeedbackState>,
+    #[account(mut,has_one = authority,close = authority)]
     pub post_account: Account<'info, PostState>,
     pub authority: Signer<'info>,
 }
